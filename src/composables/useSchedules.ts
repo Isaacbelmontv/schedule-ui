@@ -35,11 +35,6 @@ export function useSchedules() {
     return { hours, minutes }
   }
 
-  const getResourceId = (dateStr: string): string => {
-    // Return the date string itself as the resource ID (YYYY-MM-DD)
-    return dateStr
-  }
-
   const transformSchedulesToEvents = (schedulesList: Schedule[]): CalendarEvent[] => {
     // Handle case where API returns non-array data
     if (!Array.isArray(schedulesList)) {
@@ -59,9 +54,7 @@ export function useSchedules() {
 
       const end = new Date(baseDate)
       end.setHours(endTime.hours, endTime.minutes, 0, 0)
-
-      // Get resource ID (use the date itself)
-      const resourceId = getResourceId(schedule.day)
+      const resourceId = schedule.day
 
       return {
         id: String(schedule.id),

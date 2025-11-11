@@ -78,7 +78,6 @@ const calendarOptions = ref({
   eventDrop: handleEventDrop,
   eventResize: handleEventResize,
   datesSet: (dateInfo: DatesSetArg) => {
-    // Generate 7 consecutive days when the view changes
     const startDate = new Date(dateInfo.start)
     const newResources = []
 
@@ -307,20 +306,6 @@ function refreshCalendar() {
 
 .fc-event:hover {
   opacity: 0.9;
-}
-
-/* Resource timeline customization */
-.fc-timeline-slot {
-  border-right: 1px solid #ddd;
-}
-
-.fc-timeline-slot-cushion {
-  padding: 4px;
-}
-
-.fc-resource-timeline-divider {
-  width: 2px;
-  background: #ddd;
 }
 
 .modal {

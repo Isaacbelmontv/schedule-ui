@@ -42,18 +42,11 @@ class ScheduleService {
       const response = await this.axiosInstance.get<unknown>('/schedules')
       const data = response.data
 
-      // Log the response to debug structure
-      console.log('API Response:', data)
-
       let schedules: unknown[] = []
 
-      // If it's already an array, use it
       if (Array.isArray(data)) {
         schedules = data
-      }
-      // Handle if API returns data wrapped in an object (e.g., { data: [...] })
-      else if (data && typeof data === 'object') {
-        // Check common wrapper patterns
+      } else if (data && typeof data === 'object') {
         if ('data' in data && Array.isArray(data.data)) {
           schedules = data.data
         } else if ('schedules' in data && Array.isArray(data.schedules)) {
@@ -61,7 +54,6 @@ class ScheduleService {
         }
       }
 
-      // Normalize day field from ISO datetime to YYYY-MM-DD
       return schedules.map((schedule) => {
         const s = schedule as Record<string, unknown>
         return {
@@ -75,13 +67,9 @@ class ScheduleService {
     }
   }
 
-  /**
-   * Normalize date field - converts ISO datetime or date string to YYYY-MM-DD
-   */
   private normalizeDateField(dateValue: string): string {
     if (!dateValue) return dateValue
 
-    // If it's already in YYYY-MM-DD format (10 chars), return as is
     if (dateValue.length === 10 && /^\d{4}-\d{2}-\d{2}$/.test(dateValue)) {
       return dateValue
     }
