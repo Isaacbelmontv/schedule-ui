@@ -58,6 +58,7 @@ export function useSchedules() {
 
       return {
         id: String(schedule.id),
+        title: `${schedule.startTime} - ${schedule.endTime}`,
         start: start.toISOString(),
         end: end.toISOString(),
         backgroundColor: '#3788d8',

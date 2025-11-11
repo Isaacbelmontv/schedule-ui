@@ -153,9 +153,12 @@ function handleEventClick(clickInfo: EventClickArg) {
   const event = clickInfo.event
   const scheduleId = event.extendedProps?.scheduleId
 
-  if (!scheduleId || !event.start || !event.end) return
+  if (!scheduleId || !event.start || !event.end) {
+    return
+  }
 
   const scheduleData = extractScheduleData(event.start, event.end)
+
   scheduleFormData.value = scheduleData
   selectedScheduleId.value = scheduleId
   isEditing.value = true
@@ -300,12 +303,27 @@ function refreshCalendar() {
 }
 
 .fc-event {
-  cursor: pointer;
+  cursor: pointer !important;
   border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 2px 4px;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 .fc-event:hover {
-  opacity: 0.9;
+  opacity: 0.85;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transform: translateY(-1px);
+  transition: all 0.2s ease;
+}
+
+.fc-event-title {
+  color: white;
+  font-weight: 600;
+}
+
+.fc-event-main {
+  cursor: pointer !important;
 }
 
 .modal {
