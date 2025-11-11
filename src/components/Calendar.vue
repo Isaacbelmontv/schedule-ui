@@ -6,7 +6,13 @@ import FullCalendar from '@fullcalendar/vue3'
 import resourceTimelinePlugin from '@fullcalendar/resource-timeline'
 import interactionPlugin from '@fullcalendar/interaction'
 
-import type { DateSelectArg, EventClickArg, EventDropArg, EventInput, DatesSetArg } from '@fullcalendar/core'
+import type {
+  DateSelectArg,
+  EventClickArg,
+  EventDropArg,
+  EventInput,
+  DatesSetArg,
+} from '@fullcalendar/core'
 import type { EventResizeDoneArg } from '@fullcalendar/interaction'
 import type { CreateScheduleDto } from '@/types/schedule'
 import { useSchedules } from '@/composables/useSchedules'
@@ -24,7 +30,6 @@ const {
   deleteSchedule,
   extractScheduleData,
   loading,
-  error,
 } = useSchedules()
 
 // Component state
@@ -46,7 +51,7 @@ const calendarOptions = ref({
       buttonText: 'Semana',
       slotDuration: '01:00:00',
       slotMinTime: '06:00:00',
-      slotMaxTime: '23:00:00',
+      slotMaxTime: '24:00:00',
     },
   },
   headerToolbar: {
@@ -57,7 +62,7 @@ const calendarOptions = ref({
   locale: 'es',
   titleFormat: { year: 'numeric' as const, month: 'short' as const, day: 'numeric' as const },
   slotMinTime: '06:00:00',
-  slotMaxTime: '23:00:00',
+  slotMaxTime: '24:00:00',
   slotDuration: '01:00:00',
   resourceAreaHeaderContent: 'Día',
   resourceAreaWidth: '100px',
@@ -259,17 +264,10 @@ function refreshCalendar() {
 
 <template>
   <div class="calendar-container">
-    <!-- Loading indicator -->
     <div v-if="loading" class="loading-overlay">
       <div class="spinner-border text-primary" role="status">
         <span class="visually-hidden">Cargando...</span>
       </div>
-    </div>
-
-    <!-- Error message -->
-    <div v-if="error" class="alert alert-danger alert-dismissible fade show" role="alert">
-      {{ error }}
-      <button type="button" class="btn-close" @click="error = null"></button>
     </div>
 
     <!-- Calendar -->
